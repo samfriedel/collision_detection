@@ -51,3 +51,7 @@ def ball_tracker(frame):
                 cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
     return frame
+
+
+# TODO: test with different color ranges and HSV thresholds using range_detecor.py
+# tests didn't work well with updated videos w/ noisy background

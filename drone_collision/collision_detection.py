@@ -43,7 +43,10 @@ from helpers.ball_tracker import ball_tracker
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", help="path to the video file")
+# ap.add_argument("-d", "--detector", help="path to drone detector")
 args = vars(ap.parse_args())
+
+# detector = dlib.simple_object_detector(args["detector"])
 
 # grab video from supplied argument
 vid = cv2.VideoCapture(args["video"])
@@ -57,6 +60,15 @@ while True:
 
     # TODO: detect drone and make frame a smaller local reference around the drone 
     # to eliminate noise from other balls
+
+    # once detector is trained, use this to add bounding boxes to image and grab coordinates:
+    """
+    boxes = detector(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    # loop over the bounding boxes and draw them
+    for b in boxes:
+        (x, y, w, h) = (b.left(), b.top(), b.right(), b.bottom())
+        cv2.rectangle(image, (x, y), (w, h), (0, 255, 0), 2)
+    """
 
     # update our frame so it is tracking the ball being shot
     frame = ball_tracker(frame)
@@ -73,9 +85,3 @@ while True:
     # TODO: checking for overlap isn't great because one object would obstruct the other and
     # make object detection tricky. Perhaps check for proximity of ball to drone and a direction
     # change within a few frames of close proximity?
-
-    
-
-
-
-    
